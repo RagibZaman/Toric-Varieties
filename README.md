@@ -1,2 +1,2 @@
 # Toric-Varieties
- Some expository material related to Toric Varieties
+ Some old expository material related to Toric Varieties. One folder contains an essay giving an introduction to toric varieties. Note that this version is not the final version that I eventually submitted as my Honours Thesis (which is on a hard drive somewhere...) but is quite close to it. The other folder contains the material for a talk I gave on Toric Varieties at AMSSC 2014, where it was named as an Honourable Mention for Best Talk at the conference.

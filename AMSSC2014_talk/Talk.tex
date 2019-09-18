@@ -1,0 +1,210 @@
+\documentclass{beamer}
+\mode<presentation>
+\usetheme{Hannover} % Beamer Theme
+\usecolortheme{lily} % Beamer Color Theme
+
+\useinnertheme{rectangles}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Proj}{\mathbb{P}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\face}{\prec}
+\newcommand{\V}{\vee}
+\newcommand{\m}{\mathfrak{m}}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\Cone}{Cone}
+\DeclareMathOperator{\Spec}{Spec}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tikz}
+
+\title{Toric Varieties and their Euler characteristic}
+\author{Ragib Zaman}
+\institute{AMSSC at the University of Newcastle}
+\date{2 July 2014}
+
+
+\begin{document}
+\begin{frame}
+\titlepage
+\end{frame}
+
+
+\begin{frame}{Introduction}
+
+\begin{Definition}
+The affine variety $(\mathbb{C}^*)^n = (\C\setminus\{0\})^n$ is called the {\em algebraic $n$-torus}. It acts on itself by componentwise multiplication.
+\end{Definition}
+
+
+\begin{Definition}
+ A {\em Toric Variety} is a normal variety $X$ that contains an algebraic torus $\mathbb{T}$ as a Zariski open dense subset together with an action $\mathbb{T} \times X \to X$ that extends the action of $\mathbb{T}$ on itself. 
+\end{Definition}
+
+
+\end{frame}
+
+\begin{frame}{Cones}
+\begin{Definition}
+Let $u_1,\ldots, u_k$ be points in $\mathbb{Z}^n.$ Subsets of $\mathbb{R}^n$ of the following form are called {\em cones}: $$\sigma = \operatorname{Cone}(u_1,\ldots, u_k) = \{ r_1 u_1 + \ldots + r_k u_k : r_i \geq 0 \  \forall i \}.$$
+
+The {\em dual cone} of $\sigma$ is the set $$\sigma^{\vee}=\{ x\in \mathbb{R}^n : \langle x, y\rangle \geq 0 \ \forall y\in \sigma\}.$$
+
+We also assume $\sigma$ contains no line through the origin (so the origin is an apex). A {\em face} of $\sigma$ is a set of the form $$\tau := \sigma \cap u^{\perp} =\{ v\in \sigma \ | \ \langle v, u \rangle =0 \}$$ for some $u\in \sigma^{\V} .$ 
+
+
+\end{Definition}
+
+\end{frame}
+
+\begin{frame}{Affine Toric Varieties}
+\begin{itemize}
+ \item For any commutative monoid $M$ there is a $\mathbb{C}$-algebra, denoted $\mathbb{C}[M],$ with basis elements $\chi^{\mu}, \mu \in M$ and multiplication defined by $\chi^{\mu} \chi^{\mu'} = \chi^{\mu + \mu'}.$ The elements of $\mathbb{C}[M]$ are finite sums $\sum a_i \chi^{\mu_i}$ where $a_i\in \mathbb{C}.$ If $m_1,\ldots, m_r$ are generators of $M$ then $\mathbb{C}[M] = \mathbb{C}[\chi^{m_1},\ldots, \chi^{m_r}].$
+
+ \item To a cone $\sigma$ we associate the monoid $M_{\sigma} = \sigma^{\vee} \cap \mathbb{Z}^n,$ where the operation is addition of coordinates. Then we define the affine toric variety associated to $\sigma$ to be $$U_{\sigma} = \operatorname{Spec} \mathbb{C}[M_{\sigma}].$$
+
+ \item I'll let you identify $\Spec \left(\C[X_1,\ldots, X_n]/I\right)$ with $V(I).$ For example, $$\Spec \frac{\C[X_1,X_2]}{(X_1^2+X_2^2-1)} \approx \big\{ (X_1,X_2)\in \C^2 \ | \ X_1^2+X_2^2=1\big\}.$$
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Procedure}
+ \begin{enumerate}
+  \item Start with a cone $\sigma.$
+  \item Compute its dual $\sigma^{\vee} = \{ x\in \mathbb{R}^n : \langle x,y \rangle \geq 0 \ \forall y \in \sigma \}.$
+  \item Intersect with the lattice to get a monoid: $M_{\sigma} = \sigma^{\vee} \cap \mathbb{Z}^n.$
+  \item Find generators for $M_{\sigma}$ so we can write down $\mathbb{C}[M_{\sigma}].$
+  \item The affine toric variety $U_{\sigma}$ is $\operatorname{Spec}\mathbb{C}[M_{\sigma}].$
+ \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+ Let $\tau$ be a face of $\sigma$ and consider the following:
+
+\begin{itemize}
+ \item $\tau\subseteq \sigma.$
+\item $\sigma^{\vee} \subseteq \tau^{\vee}.$
+\item $\sigma^{\vee} \cap \Z^n \subseteq \tau^{\vee}\cap \Z^n.$
+\item $\C[M_{\sigma}] \subseteq \C[M_{\tau}].$
+\item $U_{\tau} \to U_{\sigma}$ is dominant (has dense image).
+\end{itemize}
+So there is a natural map from $U_{\tau}$ into $U_{\sigma}.$ From the case $\tau = 0$ we see that
+
+\begin{Theorem} An algebraic torus is a dense subset of every affine toric variety.
+
+\end{Theorem}
+
+\end{frame}
+
+\begin{frame}{Abstract Toric Varieties}
+ \begin{Definition}
+  A {\em fan} $\Delta$ is a set of cones satisfying the following conditions:
+
+\begin{itemize}
+ \item Each face of a cone in $\Delta$ is also a cone in $\Delta.$
+\item The intersection of two cones in $\Delta$ is a face of each.
+\end{itemize}
+
+The {\em abstract toric variety} $X(\Delta)$ is the disjoint union of all the $U_{\sigma}, \sigma \in \Delta,$ glued together by the following rule: If $\sigma, \tau \in \Delta$ then $\sigma \cap \tau$ is a face of both. There are natural maps $$ i: U_{\sigma\cap \tau} \to U_{\sigma}$$ $$ i' : U_{\sigma \cap \tau} \to U_{\tau}.$$
+
+We glue $U_{\sigma} $ to $U_{\tau}$ by identifying images of the natural maps above. Doing this for every pair of cones in $\Delta$ yields $X(\Delta).$
+
+ \end{Definition}
+
+\end{frame}
+
+\begin{frame}{Some Theorems}
+ The geometry of the fan captures the geometry of the variety.
+
+\begin{itemize}
+ \item $X(\Delta)$ is compact if and only $\Delta$ covers the Euclidean space it lies in. 
+\item If $\sigma$ has codimension $k$ then $\pi_1(U_{\sigma}) = \Z^k.$ If $\sigma$ has codimension $0,$ then it is contractible. 
+ \item Let $\sigma = \Cone(u_1,\ldots, u_k).$ The affine toric variety $U_{\sigma}$ is smooth if and only if $\{ u_i\}$ can be extended to a basis of $\Z^n.$ \begin{itemize}
+	  \item If so, $U_{\sigma} \cong \C^k \times (\C^*)^{n-k}$ where $k=\dim \sigma.$
+	  \item If not, then its singularities are all rational. 	
+	  \end{itemize}
+
+
+
+
+\end{itemize}
+
+\end{frame}
+\begin{frame}{Cohomology}
+ \begin{itemize}
+  \item If $X(\Delta)$ is smooth and compact, then its odd cohomology is trivial and $$b_{2k} = \sum_{i=k}^n (-1)^{i-k} \binom{i}{k} d_{n-i}$$ where $b_i = \dim_{\mathbb{Q}} H^i(X(\Delta), \mathbb{Q} )$ and $d_j$ is the number of $j$ dimensional faces in $\Delta.$ 
+
+ \end{itemize}
+
+For example, $\Proj^n(\C)= X(\Delta)$ where $\Delta = \{ \Cone(E) | E\subset \{ e_1,\ldots, e_n, -(e_1+\ldots+e_n) \} \}$ so we have $d_{n-i}=\binom{n+1}{i}.$ We get $$b_{2k}=\sum_{i=k}^n (-1)^{i-k} \binom{i}{k} \binom{n+1}{i+1} =\mathbf{1}_{0\leq k \leq n}.$$
+
+
+\end{frame}
+
+
+\begin{frame}{Toric decomposition}
+ \begin{itemize}
+  \item $X(\Delta) = \bigsqcup_{\sigma\in \Delta} T_{\sigma}$ is the disjoint union of finitely many locally closed (open in its closure) subvarieties which satisfy $T_{\sigma} \cong (\C^*)^{\operatorname{codim} \sigma}.$ 
+ \end{itemize}
+For example $$\Proj^1(\C) = \{ [1:0] \} \bigsqcup \{ [0:1] \} \bigsqcup \{ [1:x] \ | \ x\in \C^* \}$$ and $$ \{ Y^2=XZ \} = \{ (0,0,0) \} \bigsqcup \{0\} \times \{ 0 \} \times \C^* \bigsqcup \C^* \times \{ 0 \} \times \{ 0 \}$$ $$ \bigsqcup \{ (t_1,t_1t_2,t_1t_2^2) \ | \ t_1,t_2 \in \C^* \}.$$
+\end{frame}
+
+\begin{frame}{Euler Characteristic}
+
+\begin{Definition}
+ The Euler Chracteristic of a topological space $X$ is $$ \chi(X) = \sum (-1)^i \text{rank}\left( H^i(X, \Z) \right). $$ 
+\end{Definition}
+
+
+\begin{Theorem}
+ The Euler characteristic of a (compact) toric variety is $\chi(X(\Delta))=d_n.$ Here $d_n$ is the number of codimension zero cones in $\Delta.$ 
+\end{Theorem}
+\end{frame}
+
+\begin{frame}{Cohomology with Compact Supports}
+ Suppose we have a singular cochain complex $C^{\bullet}(X).$ We consider the cohomology of the subcomplex $C^{\bullet}_c(X)$ of cochains which have compact support (that is, they vanish outside some compact subset of $X$).
+
+\begin{itemize}
+ \item $H^i_c(\mathbb{R}^n, \mathbb{Q})= \mathbb{Q}$ if $i=n$ and zero otherwise.
+\item If $U\subseteq X$ is open and $C= X\setminus U,$ then there is a long exact sequence: $$ \cdots \to H^i_c(U) \to H^i_c (X) \to H^i_c (C) \to H^{i+1}_c (U) \to \cdots$$
+
+This gives $\sum (-1)^i \dim H^i_c(X) = \sum (-1)^i \left(\dim H^i_c (C) +\dim H^i_c (U)\right).$ So Euler characteristic with compact supports is an {\em additive function}:$$\chi_c(X) = \chi_c(U)+\chi_c(C).$$
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{$\chi_c$ is locally additive}
+\begin{itemize}
+ \item If $U\subseteq X$ is open and $C= X\setminus U$ then $\chi_c(X) = \chi_c(U)+\chi_c(C).$
+
+ \item If $Y$ is locally closed (open in its closure) in $X,$  $$\chi_c(X) = \chi_c(X\setminus \overline{Y}) + \chi_c(\overline{Y}) = \chi_c(X\setminus \overline{Y})+ \chi_c(\overline{Y}\setminus Y) + \chi_c(Y).$$ Since $X\setminus \overline{Y}$ is open in $X\setminus Y,$ $$\chi_c(X\setminus Y) = \chi_c( X\setminus \overline{Y} ) + \chi_c( \overline{Y}\setminus Y ).$$
+\end{itemize}
+ 
+\begin{Lemma}
+ Suppose $Y$ is locally closed in $X.$ Then $$\chi_c(X) = \chi_c(X\setminus Y) + \chi_c(Y).$$
+\end{Lemma}
+
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\item $\chi_c(\C) = \chi_c ( \{ 0 \} ) + \chi_c (\C^*)$ so $\chi_c (\C^*)=0.$
+\item The K\"{u}nneth formula $$H^k_c ( X \times Y) \cong \bigoplus_{i+j=k} \left( H^i_c (X) \otimes H^j_c(Y) \right)$$ implies that $\chi_c ( (\C^*)^n )=0$ for all $n\geq 1.$
+\item Since $X(\Delta) = \bigsqcup_{\sigma\in \Delta} T_{\sigma} \ ,$ $T_{\sigma} \cong (\C^*)^{\operatorname{codim} \sigma}$ locally closed, we have $$\chi_c(X) = \sum_{\sigma \in \Delta} \chi_c \left( (\C^*)^{\operatorname{codim} \sigma} \right).$$
+
+\item Therefore $$\chi_c (X) = d_n.$$ 
+\end{itemize}
+\qed
+ \end{frame}
+
+
+
+
+\end{document}
